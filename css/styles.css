@@ -16,7 +16,6 @@ body {
     display: flex;
 }
 
-/* Sidebar */
 .sidebar {
     width: 256px;
     background-color: #ffffff;
@@ -134,7 +133,6 @@ body {
     color: #1e293b;
 }
 
-/* Main Content */
 .main-content {
     flex: 1;
     overflow-y: auto;
@@ -147,7 +145,6 @@ body {
     }
 }
 
-/* Header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -171,6 +168,66 @@ body {
     color: #64748b;
     font-size: 14px;
     margin-top: 4px;
+}
+
+.empty-state {
+    flex-grow: 1;          
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;     
+    width: 100%;
+}
+
+.none-list-plants {
+    text-align: center;
+    color: #64748b;
+}
+
+/* Контейнер для заголовка и поиска */
+.section-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+/* Элемент обертки поиска (для позиционирования иконки) */
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 320px; /* Ограничиваем ширину, чтобы строка не растягивалась во всю ширь */
+    width: 100%;
+}
+
+/* Иконка лупы внутри инпута */
+.search-icon {
+    position: absolute;
+    left: 14px;
+    color: #94a3b8; /* Спокойный серый цвет Slate-400 */
+    font-size: 14px;
+    pointer-events: none;
+}
+
+/* Само поле ввода */
+.search-input {
+    width: 100%;
+    padding: 10px 16px 10px 40px; /* Отступ слева больше, чтобы текст не налезал на иконку */
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #1e293b;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0; /* Плавная граница Slate-200 */
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+/* Эффект при клике на поиск */
+.search-input:focus {
+    border-color: #38a169; /* Зеленый бренд-цвет при фокусе */
+    box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.15);
 }
 
 .header-right {
@@ -209,9 +266,11 @@ body {
     border-radius: 50%;
 }
 
-/* Plants Section */
 .section-plants {
-    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 140px); 
+    box-sizing: border-box;
 }
 
 .section-title {

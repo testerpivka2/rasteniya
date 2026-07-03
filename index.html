@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plant Buddy - Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <aside class="sidebar">
@@ -62,6 +62,16 @@
 
         <section class="section-plants">
             <h2 class="section-title">Мои растения</h2>
+                
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" placeholder="Поиск растений..." class="search-input">
+            </div>
+            
+            <div class="empty-state">
+                <p class="none-list-plants">Здесь пока пусто...</p>
+                <p class="none-list-plants">Добавьте свои растения!</p>
+            </div>
         </section>
     </main>
 </body>
