@@ -1,3 +1,5 @@
+
+
 function loadMyPlants() {
     const container = document.getElementById('myPlantsGrid');
     const emptyState = document.getElementById('empty-state');
@@ -21,5 +23,7 @@ function loadMyPlants() {
         });
     }
 }
+
+loadMyPlants();
 
 document.addEventListener('DOMContentLoaded', loadMyPlants);
