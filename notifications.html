@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plant Buddy - Мои растения</title>
+    <title>Plant Buddy - Уведомления</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -23,15 +23,15 @@
                     <i class="fa-solid fa-chart-pie"></i>
                     <span>Задачи</span>
                 </a>
-                <a href="my_plants.html" class="nav-item active">
-                    <i class="fa-solid fa-seedling"></i> 
+                <a href="my_plants.html" class="nav-item">
+                    <i class="fa-solid fa-seedling"></i>
                     <span>Мои растения</span>
                 </a>
                 <a href="library.html" class="nav-item">
                     <i class="fa-solid fa-book"></i>
                     <span>Справочник</span>
                 </a>
-                <a href="#" class="nav-item">
+                <a href="notifications.html" class="nav-item active">
                     <i class="fa-solid fa-bell"></i>
                     <span>Уведомления</span>
                 </a>
@@ -46,27 +46,14 @@
     <main class="main-content">
         <header class="header">
             <div class="header-left">
-                <h1 class="page-title">Мои растения</h1>
-                <p class="page-subtitle">Управление вашей зеленой коллекцией</p>
-            </div>
-            <div class="header-right">
-                <a href="notifications.html" class="btn-notification">
-                    <i class="fa-solid fa-bell"></i>
-                    <span class="notification-dot"></span>
-                </a>
+                <h1 class="page-title">Уведомления</h1>
+                <p class="page-subtitle">История напоминаний и важные сообщения</p>
             </div>
         </header>
 
-        <section class="section-plants">
-            <div class="empty-state" id="empty-state">
-                <p class="none-list-plants">Здесь пока пусто...</p>
-                <p class="none-list-plants">Добавьте свои растения из справочника!</p>
-            </div>
-            <div class="plants-grid" id="myPlantsGrid"></div>
+        <section class="section-notifications" style="padding: 20px 0;">
+            <p style="color: #64748b;">У вас нет новых уведомлений. Все растения ухожены! 👍</p>
         </section>
     </main>
-
-    <script src="js/library.js"></script>
-    <script src="js/my_plants.js"></script>
 </body>
 </html>
