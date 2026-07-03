@@ -1,0 +1,70 @@
+.btn-add-plant {
+    width: 100%;
+    background-color: var(--green-primary);
+    color: var(--white);
+    font-weight: 500;
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-add-plant:hover {
+    background-color: var(--green-dark);
+}
+
+.btn-details {
+    align-self: flex-start;
+    padding: 8px 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--green-primary);
+    background: transparent;
+    border: 1px solid var(--green-primary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-details:hover {
+    background-color: var(--green-primary);
+    color: var(--white);
+}
+
+.btn-add-to-list {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    box-shadow: var(--shadow-md);
+    color: var(--green-primary);
+    font-size: 16px;
+}
+
+.btn-add-to-list:hover {
+    transform: scale(1.1);
+}
+
+.btn-add-to-list.added {
+    background: var(--green-primary);
+    color: var(--white);
+}

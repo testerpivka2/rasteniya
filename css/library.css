@@ -1,0 +1,101 @@
+.section-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+@media (min-width: 768px) {
+    .section-controls {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 320px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    color: var(--gray-icon);
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--text-primary);
+    background-color: var(--white);
+    border: 1px solid var(--gray-border);
+    border-radius: var(--radius-md);
+    outline: none;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.search-input:focus {
+    border-color: var(--green-primary);
+    box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.15);
+}
+
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-btn {
+    padding: 8px 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background-color: var(--white);
+    border: 1px solid var(--gray-border);
+    border-radius: var(--radius-xl);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-btn:hover {
+    background-color: var(--gray-light);
+    border-color: var(--gray-icon);
+}
+
+.filter-btn.active {
+    background-color: var(--green-light);
+    color: var(--green-dark);
+    border-color: var(--green-primary);
+}
+
+.no-results {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    color: var(--gray-icon);
+    text-align: center;
+}
+
+.no-results h3 {
+    margin-top: 16px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.no-results p {
+    margin-top: 4px;
+    font-size: 14px;
+}

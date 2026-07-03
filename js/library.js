@@ -140,7 +140,6 @@ function togglePlantInList(plantId, button) {
     localStorage.setItem('myPlants', JSON.stringify(myPlants));
     updateButtonState(button, isAdded);
     
-    alert(`${isAdded ? '✅' : '❌'} ${plant.name} ${isAdded ? 'добавлен' : 'удален'} ${isAdded ? 'в' : 'из'} "Мои растения"`);
 }
 
 function updateButtonState(button, isAdded) {
