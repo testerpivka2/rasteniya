@@ -6,7 +6,8 @@ function loadMyPlants() {
     const container = document.getElementById('my-plants-grid');
     const emptyState = document.getElementById('empty-state');
     const searchInput = document.getElementById('search-input-my');
-    const myPlantsIds = JSON.parse(localStorage.getItem('myPlants')) || [];
+    const myPlantsData = JSON.parse(localStorage.getItem('myPlantsData')) || {};
+    const myPlantsIds = Object.keys(myPlantsData).map(Number);
 
     myPlantsList = plantsData.filter(p => myPlantsIds.includes(p.id));
 

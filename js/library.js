@@ -1,5 +1,3 @@
-
-
 const plantsGrid = document.getElementById('plants-grid');
 const searchInput = document.getElementById('search-input');
 const filterBtns = document.querySelectorAll('.filter-btn');
@@ -55,23 +53,25 @@ function createPlantCard(plant) {
 }
 
 function togglePlantInList(plantId, button) {
-    let myPlants = JSON.parse(localStorage.getItem('myPlants')) || [];
-    const index = myPlants.indexOf(plantId);
+    let myPlantsData = JSON.parse(localStorage.getItem('myPlantsData')) || {};
     const plant = plantsData.find(p => p.id === plantId);
-    const isAdded = index === -1;
+    const isAdded = !!myPlantsData[plantId];
     
     if (isAdded) {
-        myPlants.push(plantId);
+        delete myPlantsData[plantId];
     } else {
-        myPlants.splice(index, 1);
+        myPlantsData[plantId] = {
+            addedDate: new Date().toISOString().split('T')[0],
+            note: ''
+        };
     }
     
-    localStorage.setItem('myPlants', JSON.stringify(myPlants));
-    updateButtonState(button, isAdded);
+    localStorage.setItem('myPlantsData', JSON.stringify(myPlantsData));
+    updateButtonState(button, !isAdded);
     
     const modalAddBtn = document.querySelector('.modal-add-btn');
     if (modalAddBtn) {
-        if (isAdded) {
+        if (!isAdded) {
             modalAddBtn.classList.add('added');
             modalAddBtn.innerHTML = '<i class="fa-solid fa-check"></i> В моих растениях';
         } else {
@@ -88,8 +88,9 @@ function updateButtonState(button, isAdded) {
 }
 
 function checkIfInList(plantId, button) {
-    const myPlants = JSON.parse(localStorage.getItem('myPlants')) || [];
-    updateButtonState(button, myPlants.includes(plantId));
+    const myPlantsData = JSON.parse(localStorage.getItem('myPlantsData')) || {};
+    const isAdded = !!myPlantsData[plantId];
+    updateButtonState(button, isAdded);
 }
 
 let modalLoaded = false;
@@ -217,8 +218,8 @@ function showPlantDetails(plantId) {
 
     const addBtn = content.querySelector('.modal-add-btn');
     if (addBtn) {
-        const myPlants = JSON.parse(localStorage.getItem('myPlants')) || [];
-        if (myPlants.includes(plant.id)) {
+        const myPlantsData = JSON.parse(localStorage.getItem('myPlantsData')) || {};
+        if (myPlantsData[plant.id]) {
             addBtn.classList.add('added');
             addBtn.innerHTML = '<i class="fa-solid fa-check"></i> В моих растениях';
         }
