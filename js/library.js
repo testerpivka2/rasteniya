@@ -5,8 +5,7 @@ const plantsData = [
         scientific: 'Rosa spp.',
         category: 'flowers',
         description: 'Популярное садовое растение с ароматными цветами.',
-        gradient: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
-        icon: 'fa-rose',
+        image: 'img/rose.png', 
         tags: ['☀️ Свет', '💧 Умеренный', '🌱 Средний уход']
     },
     {
@@ -15,8 +14,7 @@ const plantsData = [
         scientific: 'Cactaceae',
         category: 'succulents',
         description: 'Неприхотливое растение, идеально для начинающих.',
-        gradient: 'linear-gradient(135deg, #a8e063, #56ab2f)',
-        icon: 'fa-cactus',
+        image: 'img/cactaceae.png',
         tags: ['☀️ Яркий свет', '💧 Редкий', '🌱 Легкий уход']
     },
     {
@@ -25,8 +23,7 @@ const plantsData = [
         scientific: 'Orchidaceae',
         category: 'flowers',
         description: 'Изысканное растение с экзотическими цветами.',
-        gradient: 'linear-gradient(135deg, #a29bfe, #6c5ce7)',
-        icon: 'fa-flower',
+        image: 'img/orchidaceae.png',
         tags: ['☀️ Рассеянный', '💧 Умеренный', '🌱 Высокий уход']
     },
     {
@@ -35,8 +32,7 @@ const plantsData = [
         scientific: 'Ocimum basilicum',
         category: 'herbs',
         description: 'Ароматная пряная трава для кулинарии.',
-        gradient: 'linear-gradient(135deg, #ffecd2, #fcb69f)',
-        icon: 'fa-seedling',
+        image: 'img/basilicum.png',
         tags: ['☀️ Яркий свет', '💧 Умеренный', '🌱 Простой уход']
     },
     {
@@ -45,8 +41,7 @@ const plantsData = [
         scientific: 'Arecaceae',
         category: 'palms',
         description: 'Эффектное комнатное дерево с пышной кроной.',
-        gradient: 'linear-gradient(135deg, #2ecc71, #27ae60)',
-        icon: 'fa-tree',
+        image: 'img/palm.png',
         tags: ['☀️ Рассеянный', '💧 Обильный', '🌱 Средний уход']
     },
     {
@@ -55,8 +50,7 @@ const plantsData = [
         scientific: 'Aloe vera',
         category: 'succulents',
         description: 'Лечебное растение с полезными свойствами.',
-        gradient: 'linear-gradient(135deg, #f7971e, #ffd200)',
-        icon: 'fa-leaf',
+        image: 'img/aloevera.png',
         tags: ['☀️ Яркий свет', '💧 Редкий', '🌱 Легкий уход']
     },
     {
@@ -65,8 +59,7 @@ const plantsData = [
         scientific: 'Monstera deliciosa',
         category: 'trees',
         description: 'Тропическое растение с резными листьями.',
-        gradient: 'linear-gradient(135deg, #11998e, #38ef7d)',
-        icon: 'fa-leaf',
+        image: 'img/monstera.png',
         tags: ['☀️ Рассеянный', '💧 Умеренный', '🌱 Средний уход']
     },
     {
@@ -75,8 +68,7 @@ const plantsData = [
         scientific: 'Lavandula',
         category: 'herbs',
         description: 'Ароматное растение с успокаивающим запахом.',
-        gradient: 'linear-gradient(135deg, #c471ed, #f64f59)',
-        icon: 'fa-flower',
+        image: 'img/lavande.png',
         tags: ['☀️ Яркий свет', '💧 Редкий', '🌱 Простой уход']
     }
 ];
@@ -101,8 +93,8 @@ function createPlantCard(plant) {
     }).join('');
 
     card.innerHTML = `
-        <div class="plant-image" style="background: ${plant.gradient};">
-            <i class="fa-solid ${plant.icon}"></i>
+        <div class="plant-image">
+            <img src="${plant.image}" alt="${plant.name}">
         </div>
         <div class="plant-info">
             <h3 class="plant-name">${plant.name}</h3>
