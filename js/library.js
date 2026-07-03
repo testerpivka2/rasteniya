@@ -95,6 +95,9 @@ function createPlantCard(plant) {
     card.innerHTML = `
         <div class="plant-image">
             <img src="${plant.image}" alt="${plant.name}">
+            <button class="btn-add-to-list" data-id="${plant.id}">
+                <i class="fa-solid fa-plus"></i>
+            </button>
         </div>
         <div class="plant-info">
             <h3 class="plant-name">${plant.name}</h3>
@@ -111,7 +114,44 @@ function createPlantCard(plant) {
         showPlantDetails(plant.id);
     });
 
+    const addBtn = card.querySelector('.btn-add-to-list');
+    addBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        togglePlantInList(plant.id, this);
+    });
+
+    checkIfInList(plant.id, addBtn);
+
     return card;
+}
+
+function togglePlantInList(plantId, button) {
+    let myPlants = JSON.parse(localStorage.getItem('myPlants')) || [];
+    const index = myPlants.indexOf(plantId);
+    const plant = plantsData.find(p => p.id === plantId);
+    const isAdded = index === -1;
+    
+    if (isAdded) {
+        myPlants.push(plantId);
+    } else {
+        myPlants.splice(index, 1);
+    }
+    
+    localStorage.setItem('myPlants', JSON.stringify(myPlants));
+    updateButtonState(button, isAdded);
+    
+    alert(`${isAdded ? '✅' : '❌'} ${plant.name} ${isAdded ? 'добавлен' : 'удален'} ${isAdded ? 'в' : 'из'} "Мои растения"`);
+}
+
+function updateButtonState(button, isAdded) {
+    const icon = button.querySelector('i');
+    icon.className = isAdded ? 'fa-solid fa-check' : 'fa-solid fa-plus';
+    button.classList.toggle('added', isAdded);
+}
+
+function checkIfInList(plantId, button) {
+    const myPlants = JSON.parse(localStorage.getItem('myPlants')) || [];
+    updateButtonState(button, myPlants.includes(plantId));
 }
 
 function showPlantDetails(plantId) {
@@ -174,7 +214,7 @@ filterBtns.forEach(btn => {
 
 plantsGrid.addEventListener('click', function(e) {
     const card = e.target.closest('.plant-card');
-    if (card && !e.target.closest('.btn-details')) {
+    if (card && !e.target.closest('.btn-details') && !e.target.closest('.btn-add-to-list')) {
         const id = parseInt(card.dataset.id);
         showPlantDetails(id);
     }
