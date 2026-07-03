@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Buddy - Справочник</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <div class="logo">
+                <i class="fa-solid fa-leaf"></i>
+                <span>Plant Buddy</span>
+            </div>
+
+            <button class="btn-add-plant">
+                <i class="fa-solid fa-circle-plus"></i>
+                <span>Добавить новое растение</span>
+            </button>
+
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Задачи</span>
+                </a>
+                <a href="index.html" class="nav-item">
+                    <i class="fa-solid fa-seedling"></i>
+                    <span>Мои растения</span>
+                </a>
+                <a href="library.html" class="nav-item active">
+                    <i class="fa-solid fa-book"></i>
+                    <span>Справочник</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fa-solid fa-bell"></i>
+                    <span>Уведомления</span>
+                </a>
+            </nav>
+        </div>
+
+        <button class="btn-settings">
+            <i class="fa-solid fa-gear"></i>
+            <span>Настройки</span>
+        </button>
+    </aside>
+
+    <main class="main-content">
+        <header class="header">
+            <div class="header-left">
+                <h1 class="page-title">Справочник растений</h1>
+                <p class="page-subtitle">Изучайте и открывайте новые виды растений</p>
+            </div>
+            <div class="header-right">
+                <button class="btn-notification">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="notification-dot"></span>
+                </button>
+            </div>
+        </header>
+
+        <section class="section-plants">
+            <div class="section-controls">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" placeholder="Поиск растений..." class="search-input" id="searchInput">
+                </div>
+            </div>
+
+            <div class="category-filters" id="categoryFilters">
+                <button class="filter-btn active" data-category="all">Все</button>
+                <button class="filter-btn" data-category="flowers">🌸 Цветущие</button>
+                <button class="filter-btn" data-category="succulents">🌵 Суккуленты</button>
+                <button class="filter-btn" data-category="trees">🌳 Деревья</button>
+                <button class="filter-btn" data-category="herbs">🌿 Травы</button>
+                <button class="filter-btn" data-category="palms">🌴 Пальмы</button>
+            </div>
+
+            <div class="plants-grid" id="plantsGrid"></div>
+
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fa-solid fa-search" style="font-size: 48px; color: #cbd5e1;"></i>
+                <h3>Ничего не найдено</h3>
+                <p>Попробуйте изменить критерии поиска</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/library.js"></script>
+</body>
+</html>

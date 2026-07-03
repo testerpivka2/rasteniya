@@ -1,0 +1,189 @@
+const plantsData = [
+    {
+        id: 1,
+        name: 'Роза',
+        scientific: 'Rosa spp.',
+        category: 'flowers',
+        description: 'Популярное садовое растение с ароматными цветами.',
+        gradient: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
+        icon: 'fa-rose',
+        tags: ['☀️ Свет', '💧 Умеренный', '🌱 Средний уход']
+    },
+    {
+        id: 2,
+        name: 'Кактус',
+        scientific: 'Cactaceae',
+        category: 'succulents',
+        description: 'Неприхотливое растение, идеально для начинающих.',
+        gradient: 'linear-gradient(135deg, #a8e063, #56ab2f)',
+        icon: 'fa-cactus',
+        tags: ['☀️ Яркий свет', '💧 Редкий', '🌱 Легкий уход']
+    },
+    {
+        id: 3,
+        name: 'Орхидея',
+        scientific: 'Orchidaceae',
+        category: 'flowers',
+        description: 'Изысканное растение с экзотическими цветами.',
+        gradient: 'linear-gradient(135deg, #a29bfe, #6c5ce7)',
+        icon: 'fa-flower',
+        tags: ['☀️ Рассеянный', '💧 Умеренный', '🌱 Высокий уход']
+    },
+    {
+        id: 4,
+        name: 'Базилик',
+        scientific: 'Ocimum basilicum',
+        category: 'herbs',
+        description: 'Ароматная пряная трава для кулинарии.',
+        gradient: 'linear-gradient(135deg, #ffecd2, #fcb69f)',
+        icon: 'fa-seedling',
+        tags: ['☀️ Яркий свет', '💧 Умеренный', '🌱 Простой уход']
+    },
+    {
+        id: 5,
+        name: 'Пальма',
+        scientific: 'Arecaceae',
+        category: 'palms',
+        description: 'Эффектное комнатное дерево с пышной кроной.',
+        gradient: 'linear-gradient(135deg, #2ecc71, #27ae60)',
+        icon: 'fa-tree',
+        tags: ['☀️ Рассеянный', '💧 Обильный', '🌱 Средний уход']
+    },
+    {
+        id: 6,
+        name: 'Алоэ вера',
+        scientific: 'Aloe vera',
+        category: 'succulents',
+        description: 'Лечебное растение с полезными свойствами.',
+        gradient: 'linear-gradient(135deg, #f7971e, #ffd200)',
+        icon: 'fa-leaf',
+        tags: ['☀️ Яркий свет', '💧 Редкий', '🌱 Легкий уход']
+    },
+    {
+        id: 7,
+        name: 'Монстера',
+        scientific: 'Monstera deliciosa',
+        category: 'trees',
+        description: 'Тропическое растение с резными листьями.',
+        gradient: 'linear-gradient(135deg, #11998e, #38ef7d)',
+        icon: 'fa-leaf',
+        tags: ['☀️ Рассеянный', '💧 Умеренный', '🌱 Средний уход']
+    },
+    {
+        id: 8,
+        name: 'Лаванда',
+        scientific: 'Lavandula',
+        category: 'herbs',
+        description: 'Ароматное растение с успокаивающим запахом.',
+        gradient: 'linear-gradient(135deg, #c471ed, #f64f59)',
+        icon: 'fa-flower',
+        tags: ['☀️ Яркий свет', '💧 Редкий', '🌱 Простой уход']
+    }
+];
+
+const plantsGrid = document.getElementById('plantsGrid');
+const searchInput = document.getElementById('searchInput');
+const filterBtns = document.querySelectorAll('.filter-btn');
+const noResults = document.getElementById('noResults');
+
+function createPlantCard(plant) {
+    const card = document.createElement('div');
+    card.className = 'plant-card';
+    card.dataset.category = plant.category;
+    card.dataset.id = plant.id;
+
+    const tagsHtml = plant.tags.map(tag => {
+        let tagClass = 'tag';
+        if (tag.includes('☀️')) tagClass += ' tag-light';
+        else if (tag.includes('💧')) tagClass += ' tag-water';
+        else if (tag.includes('🌱')) tagClass += ' tag-care';
+        return `<span class="${tagClass}">${tag}</span>`;
+    }).join('');
+
+    card.innerHTML = `
+        <div class="plant-image" style="background: ${plant.gradient};">
+            <i class="fa-solid ${plant.icon}"></i>
+        </div>
+        <div class="plant-info">
+            <h3 class="plant-name">${plant.name}</h3>
+            <p class="plant-scientific">${plant.scientific}</p>
+            <div class="plant-tags">${tagsHtml}</div>
+            <div class="plant-description">${plant.description}</div>
+            <button class="btn-details" data-id="${plant.id}">Подробнее →</button>
+        </div>
+    `;
+
+    const detailsBtn = card.querySelector('.btn-details');
+    detailsBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        showPlantDetails(plant.id);
+    });
+
+    return card;
+}
+
+function showPlantDetails(plantId) {
+    const plant = plantsData.find(p => p.id === plantId);
+    if (!plant) return;
+
+    alert(
+        `📚 Информация о растении: ${plant.name}\n\n` +
+        `🌿 Латинское название: ${plant.scientific}\n` +
+        `📋 Категория: ${plant.category}\n` +
+        `📝 Описание: ${plant.description}\n\n` +
+        `💡 Условия ухода:\n` +
+        plant.tags.map(tag => `  • ${tag}`).join('\n') +
+        `\n\n✨ Здесь будет полная информация о растении, график полива, рекомендации по пересадке и многое другое!`
+    );
+}
+
+function renderPlants(plants) {
+    plantsGrid.innerHTML = '';
+    
+    if (plants.length === 0) {
+        noResults.style.display = 'flex';
+        return;
+    }
+    
+    noResults.style.display = 'none';
+    
+    plants.forEach(plant => {
+        const card = createPlantCard(plant);
+        plantsGrid.appendChild(card);
+    });
+}
+
+function filterPlants() {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    const activeCategory = document.querySelector('.filter-btn.active')?.dataset.category || 'all';
+
+    const filtered = plantsData.filter(plant => {
+        const matchesSearch = plant.name.toLowerCase().includes(searchTerm) || 
+                            plant.scientific.toLowerCase().includes(searchTerm) || 
+                            plant.description.toLowerCase().includes(searchTerm);
+        const matchesCategory = activeCategory === 'all' || plant.category === activeCategory;
+        return matchesSearch && matchesCategory;
+    });
+
+    renderPlants(filtered);
+}
+
+renderPlants(plantsData);
+
+searchInput.addEventListener('input', filterPlants);
+
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        filterPlants();
+    });
+});
+
+plantsGrid.addEventListener('click', function(e) {
+    const card = e.target.closest('.plant-card');
+    if (card && !e.target.closest('.btn-details')) {
+        const id = parseInt(card.dataset.id);
+        showPlantDetails(id);
+    }
+});
