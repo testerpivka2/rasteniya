@@ -1,82 +1,11 @@
-const plantsData = [
-    {
-        id: 1,
-        name: 'Роза',
-        scientific: 'Rosa spp.',
-        category: 'flowers',
-        description: 'Популярное садовое растение с ароматными цветами.',
-        image: 'img/rose.png', 
-        tags: ['☀️ Свет', '💧 Умеренный', '🌱 Средний уход']
-    },
-    {
-        id: 2,
-        name: 'Кактус',
-        scientific: 'Cactaceae',
-        category: 'succulents',
-        description: 'Неприхотливое растение, идеально для начинающих.',
-        image: 'img/cactaceae.png',
-        tags: ['☀️ Яркий свет', '💧 Редкий', '🌱 Легкий уход']
-    },
-    {
-        id: 3,
-        name: 'Орхидея',
-        scientific: 'Orchidaceae',
-        category: 'flowers',
-        description: 'Изысканное растение с экзотическими цветами.',
-        image: 'img/orchidaceae.png',
-        tags: ['☀️ Рассеянный', '💧 Умеренный', '🌱 Высокий уход']
-    },
-    {
-        id: 4,
-        name: 'Базилик',
-        scientific: 'Ocimum basilicum',
-        category: 'herbs',
-        description: 'Ароматная пряная трава для кулинарии.',
-        image: 'img/basilicum.png',
-        tags: ['☀️ Яркий свет', '💧 Умеренный', '🌱 Простой уход']
-    },
-    {
-        id: 5,
-        name: 'Пальма',
-        scientific: 'Arecaceae',
-        category: 'palms',
-        description: 'Эффектное комнатное дерево с пышной кроной.',
-        image: 'img/palm.png',
-        tags: ['☀️ Рассеянный', '💧 Обильный', '🌱 Средний уход']
-    },
-    {
-        id: 6,
-        name: 'Алоэ вера',
-        scientific: 'Aloe vera',
-        category: 'succulents',
-        description: 'Лечебное растение с полезными свойствами.',
-        image: 'img/aloevera.png',
-        tags: ['☀️ Яркий свет', '💧 Редкий', '🌱 Легкий уход']
-    },
-    {
-        id: 7,
-        name: 'Монстера',
-        scientific: 'Monstera deliciosa',
-        category: 'trees',
-        description: 'Тропическое растение с резными листьями.',
-        image: 'img/monstera.png',
-        tags: ['☀️ Рассеянный', '💧 Умеренный', '🌱 Средний уход']
-    },
-    {
-        id: 8,
-        name: 'Лаванда',
-        scientific: 'Lavandula',
-        category: 'herbs',
-        description: 'Ароматное растение с успокаивающим запахом.',
-        image: 'img/lavande.png',
-        tags: ['☀️ Яркий свет', '💧 Редкий', '🌱 Простой уход']
-    }
-];
 
-const plantsGrid = document.getElementById('plantsGrid');
+
+const plantsGrid = document.getElementById('plants-grid');
 const searchInput = document.getElementById('searchInput');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const noResults = document.getElementById('noResults');
+
+
 
 function createPlantCard(plant) {
     const card = document.createElement('div');
@@ -114,7 +43,7 @@ function createPlantCard(plant) {
         showPlantDetails(plant.id);
     });
 
-    const addBtn = card.querySelector('.btn-add-to-list');
+   const addBtn = card.querySelector('.btn-add-to-list');
     addBtn.addEventListener('click', function(e) {
         e.stopPropagation();
         togglePlantInList(plant.id, this);
@@ -140,6 +69,16 @@ function togglePlantInList(plantId, button) {
     localStorage.setItem('myPlants', JSON.stringify(myPlants));
     updateButtonState(button, isAdded);
     
+    const modalAddBtn = document.querySelector('.modal-add-btn');
+    if (modalAddBtn) {
+        if (isAdded) {
+            modalAddBtn.classList.add('added');
+            modalAddBtn.innerHTML = '<i class="fa-solid fa-check"></i> В моих растениях';
+        } else {
+            modalAddBtn.classList.remove('added');
+            modalAddBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Добавить в мои растения';
+        }
+    }
 }
 
 function updateButtonState(button, isAdded) {
@@ -153,19 +92,142 @@ function checkIfInList(plantId, button) {
     updateButtonState(button, myPlants.includes(plantId));
 }
 
+let modalLoaded = false;
+
+function loadModal() {
+
+    if (modalLoaded) return;
+    if (document.getElementById('plantModal')) return;
+
+    fetch('plants_description.html')
+        .then(response => response.text())
+        .then(html => {
+            const div = document.createElement('div');
+            div.innerHTML = html;
+            document.body.appendChild(div.firstElementChild);
+            modalLoaded = true;
+        })
+}
+
+function closeModal() {
+    const modal = document.getElementById('plantModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+document.addEventListener('click', function(e) {
+    const isCloseBtn = e.target.closest('#modalClose');
+    const isOverlay = e.target === document.getElementById('plantModal');
+    
+    if (isCloseBtn || isOverlay) {
+        closeModal();
+    }
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+});
+
 function showPlantDetails(plantId) {
     const plant = plantsData.find(p => p.id === plantId);
     if (!plant) return;
 
-    alert(
-        `📚 Информация о растении: ${plant.name}\n\n` +
-        `🌿 Латинское название: ${plant.scientific}\n` +
-        `📋 Категория: ${plant.category}\n` +
-        `📝 Описание: ${plant.description}\n\n` +
-        `💡 Условия ухода:\n` +
-        plant.tags.map(tag => `  • ${tag}`).join('\n') +
-        `\n\n✨ Здесь будет полная информация о растении, график полива, рекомендации по пересадке и многое другое!`
-    );
+    const modal = document.getElementById('plantModal');
+    const content = document.getElementById('modalContent');
+
+    if (!modal || !content) {
+        loadModal();
+        setTimeout(() => showPlantDetails(plantId), 100);
+        return;
+    }
+
+    const tagsHtml = plant.tags.map(tag => {
+        let tagClass = 'tag';
+        if (tag.includes('☀️')) tagClass += ' tag-light';
+        else if (tag.includes('💧')) tagClass += ' tag-water';
+        else if (tag.includes('🌱')) tagClass += ' tag-care';
+        return `<span class="${tagClass}">${tag}</span>`;
+    }).join('');
+
+    const poisonousHtml = plant.poisonous.includes('Ядовито') 
+        ? `<span class="poisonous-badge">⚠️ Ядовито!</span>` 
+        : `<span class="safe-badge">✅ Не ядовито</span>`;
+
+    content.innerHTML = `
+        <div class="modal-plant-image">
+            <img src="${plant.image}" alt="${plant.name}">
+        </div>
+        <div class="modal-body">
+            <div class="modal-header">
+                <h2 class="modal-plant-name">${plant.name}</h2>
+                ${poisonousHtml}
+            </div>
+            <p class="modal-plant-scientific">${plant.scientific}</p>
+            <div class="modal-plant-tags">${tagsHtml}</div>
+            <p class="modal-plant-description">${plant.description}</p>
+            
+            <div class="modal-plant-details">
+                <div class="detail-item">
+                    <span class="detail-icon">💧</span>
+                    <div>
+                        <strong>Полив</strong>
+                        <p>${plant.watering}</p>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-icon">☀️</span>
+                    <div>
+                        <strong>Освещение</strong>
+                        <p>${plant.lighting}</p>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-icon">🔄</span>
+                    <div>
+                        <strong>Пересадка</strong>
+                        <p>${plant.transplant}</p>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-icon">⚠️</span>
+                    <div>
+                        <strong>Ядовитость</strong>
+                        <p>${plant.poisonous}</p>
+                    </div>
+                </div>
+                ${plant.features ? `
+                <div class="detail-item">
+                    <span class="detail-icon">✨</span>
+                    <div>
+                        <strong>Особенности ухода</strong>
+                        <p>${plant.features}</p>
+                    </div>
+                </div>
+                ` : ''}
+            </div>
+
+            <button class="modal-add-btn" data-id="${plant.id}">
+                <i class="fa-solid fa-plus"></i> Добавить в мои растения
+            </button>
+        </div>
+    `;
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    const addBtn = content.querySelector('.modal-add-btn');
+    if (addBtn) {
+        const myPlants = JSON.parse(localStorage.getItem('myPlants')) || [];
+        if (myPlants.includes(plant.id)) {
+            addBtn.classList.add('added');
+            addBtn.innerHTML = '<i class="fa-solid fa-check"></i> В моих растениях';
+        }
+
+        addBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            togglePlantInList(plant.id, this);
+        });
+    }
 }
 
 function renderPlants(plants) {
@@ -217,4 +279,8 @@ plantsGrid.addEventListener('click', function(e) {
         const id = parseInt(card.dataset.id);
         showPlantDetails(id);
     }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadModal();
 });
