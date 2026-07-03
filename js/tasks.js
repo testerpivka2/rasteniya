@@ -90,12 +90,19 @@ function loadTasks() {
                         <button class="task-done-btn" data-id="${plant.id}" data-type="transplant">☑</button>
                     </div>
                 </div>
+                <button class="task-note-btn" data-id="${plant.id}">📝 Заметка</button>
                 <button class="task-details-btn" data-id="${plant.id}">Подробнее →</button>
             `;
             
             const detailsBtn = card.querySelector('.task-details-btn');
             detailsBtn.addEventListener('click', function() {
                 showPlantDetails(plant.id);
+            });
+
+            card.querySelector('.task-note-btn')?.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const id = parseInt(this.dataset.id);
+                openNoteEditor(id);
             });
             
             card.querySelectorAll('.task-done-btn').forEach(btn => {
@@ -129,6 +136,68 @@ function markTaskDone(plantId, taskType) {
     } else {
         console.log('Plant not found in myPlantsData');
     }
+}
+
+function openNoteEditor(plantId) {
+    const plant = plantsData.find(p => p.id === plantId);
+    const myPlantsData = JSON.parse(localStorage.getItem('myPlantsData')) || {};
+    const currentNote = myPlantsData[plantId]?.note || '';
+    
+    const overlay = document.createElement('div');
+    overlay.className = 'note-overlay';
+    overlay.id = 'note-editor';
+    
+    overlay.innerHTML = `
+        <div class="note-modal">
+            <div class="note-modal-header">
+                <h3>📝 Заметка для ${plant.name}</h3>
+                <button class="note-close-btn" id="note-close-btn">&times;</button>
+            </div>
+            <textarea id="note-textarea" rows="6" placeholder="Введите вашу заметку о растении...">${currentNote}</textarea>
+            <div class="note-modal-actions">
+                <button class="note-save-btn" id="note-save-btn">💾 Сохранить</button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(overlay);
+    overlay.style.display = 'flex';
+    
+    const textarea = overlay.querySelector('#note-textarea');
+    textarea.focus();
+    textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+    
+    overlay.querySelector('#note-close-btn').addEventListener('click', function() {
+        overlay.remove();
+    });
+    
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) overlay.remove();
+    });
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const el = document.getElementById('note-editor');
+            if (el) el.remove();
+        }
+    });
+    
+    overlay.querySelector('#note-save-btn').addEventListener('click', function() {
+        const note = textarea.value.trim();
+        const data = JSON.parse(localStorage.getItem('myPlantsData')) || {};
+        if (data[plantId]) {
+            data[plantId].note = note;
+            localStorage.setItem('myPlantsData', JSON.stringify(data));
+            overlay.remove();
+            loadTasks();
+        }
+    });
+    
+    textarea.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+            overlay.querySelector('#note-save-btn').click();
+        }
+    });
 }
 
 if (document.readyState === 'loading') {
