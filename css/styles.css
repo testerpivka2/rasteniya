@@ -184,6 +184,18 @@ body {
     color: #64748b;
 }
 
+.hidden {
+    display: none !important;
+}
+
+.plants-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    width: 100%;
+    margin-top: 10px;
+}
+
 /* Контейнер для заголовка и поиска */
 .section-controls {
     display: flex;
