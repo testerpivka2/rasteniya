@@ -3,11 +3,13 @@
     --green-dark: #2F855A;
     --green-light: #E6F4EA;
     --green-bg: #F4F7F5;
+    --green-success: #16a34a;
     
     --gray-border: #e2e8f0;
     --gray-light: #f8fafc;
     --gray-bg: #f1f5f9;
     --gray-icon: #94a3b8;
+    --gray-unknown: #94a3b8;
     
     --text-dark: #0f172a;
     --text-primary: #1e293b;
@@ -16,6 +18,10 @@
     
     --white: #ffffff;
     --red: #ef4444;
+    --red-critical: #dc2626;
+    
+    --yellow-warning: #ca8a04;
+    --orange-urgent: #ea580c;
     
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);

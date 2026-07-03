@@ -56,13 +56,16 @@ function togglePlantInList(plantId, button) {
     let myPlantsData = JSON.parse(localStorage.getItem('myPlantsData')) || {};
     const plant = plantsData.find(p => p.id === plantId);
     const isAdded = !!myPlantsData[plantId];
+    const today = new Date().toISOString().split('T')[0];
     
     if (isAdded) {
         delete myPlantsData[plantId];
     } else {
         myPlantsData[plantId] = {
-            addedDate: new Date().toISOString().split('T')[0],
-            note: ''
+            addedDate: today,
+            note: '',
+            lastWatering: today,
+            lastTransplant: today
         };
     }
     
@@ -248,6 +251,8 @@ function filterPlants() {
 }
 
 function renderPlants(plants) {
+    if(!plantsGrid) return;
+
     plantsGrid.innerHTML = '';
     
     if (plants.length === 0) {
@@ -255,7 +260,9 @@ function renderPlants(plants) {
         return;
     }
     
-    no_results.style.display = 'none';
+    if(no_results) {
+        no_results.style.display = 'none';
+    }
     
     plants.forEach(plant => {
         const card = createPlantCard(plant);
@@ -289,4 +296,8 @@ if (plantsGrid) {
             showPlantDetails(id);
         }
     });
+}
+
+if (plantsGrid) {
+    renderPlants(plantsData);
 }

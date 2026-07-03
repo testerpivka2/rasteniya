@@ -8,8 +8,10 @@ const plantsData = [
         image: 'img/rose.png',
         tags: ['☀️ Свет', '💧 Умеренный', '🌱 Средний уход'],
         watering: 'Поливать 2-3 раза в неделю летом, зимой реже. Не заливать!',
+        wateringInterval: 3,
         lighting: 'Яркий рассеянный свет, полутень.',
         transplant: 'Пересаживать весной раз в 2-3 года.',
+        transplantInterval: 730,
         poisonous: 'Не ядовито.',
         features: 'Любит опрыскивание, не переносит сквозняки.'
     },
@@ -22,8 +24,10 @@ const plantsData = [
         image: 'img/cactaceae.png',
         tags: ['☀️ Яркий свет', '💧 Редкий', '🌱 Легкий уход'],
         watering: 'Поливать 1 раз в 2-3 недели летом, зимой раз в месяц.',
+        wateringInterval: 14,
         lighting: 'Яркий солнечный свет.',
         transplant: 'Пересаживать раз в 2-3 года весной.',
+        transplantInterval: 730,
         poisonous: 'Не ядовит.',
         features: 'Не любит переувлажнения, нужен дренаж.'
     },
@@ -36,8 +40,10 @@ const plantsData = [
         image: 'img/orchidaceae.png',
         tags: ['☀️ Рассеянный', '💧 Умеренный', '🌱 Высокий уход'],
         watering: 'Поливать раз в 5-7 дней, только когда субстрат просох.',
+        wateringInterval: 6,
         lighting: 'Яркий рассеянный свет, без прямых солнечных лучей.',
         transplant: 'Пересаживать раз в 2 года после цветения.',
+        transplantInterval: 730,
         poisonous: 'Не ядовита.',
         features: 'Любит влажность, нуждается в опрыскивании.'
     },
@@ -50,8 +56,10 @@ const plantsData = [
         image: 'img/basilicum.png',
         tags: ['☀️ Яркий свет', '💧 Умеренный', '🌱 Простой уход'],
         watering: 'Поливать ежедневно в жаркую погоду, не пересушивать.',
+        wateringInterval: 1,
         lighting: 'Яркий солнечный свет 6-8 часов в день.',
         transplant: 'Не требует пересадки, выращивается из семян.',
+        transplantInterval: 9999,
         poisonous: 'Не ядовит.',
         features: 'Любит тепло, регулярно прищипывайте для роста.'
     },
@@ -64,8 +72,10 @@ const plantsData = [
         image: 'img/palm.png',
         tags: ['☀️ Рассеянный', '💧 Обильный', '🌱 Средний уход'],
         watering: 'Поливать обильно, но редко. Давать земле просохнуть.',
+        wateringInterval: 7,
         lighting: 'Яркий рассеянный свет, полутень.',
         transplant: 'Пересаживать весной раз в 3-4 года.',
+        transplantInterval: 1095,
         poisonous: 'Не ядовита.',
         features: 'Любит опрыскивание, протирайте листья от пыли.'
     },
@@ -78,8 +88,10 @@ const plantsData = [
         image: 'img/aloevera.png',
         tags: ['☀️ Яркий свет', '💧 Редкий', '🌱 Легкий уход'],
         watering: 'Поливать раз в 2-3 недели, зимой раз в месяц.',
+        wateringInterval: 14,
         lighting: 'Яркий солнечный свет.',
         transplant: 'Пересаживать весной раз в 2 года.',
+        transplantInterval: 730,
         poisonous: 'Не ядовито, но не употреблять внутрь.',
         features: 'Сок обладает целебными свойствами.'
     },
@@ -92,8 +104,10 @@ const plantsData = [
         image: 'img/monstera.png',
         tags: ['☀️ Рассеянный', '💧 Умеренный', '🌱 Средний уход'],
         watering: 'Поливать обильно летом, умеренно зимой.',
+        wateringInterval: 5,
         lighting: 'Яркий рассеянный свет.',
         transplant: 'Пересаживать весной раз в 2 года.',
+        transplantInterval: 730,
         poisonous: 'Ядовито! Сок раздражает кожу и слизистые.',
         features: 'Нуждается в опоре, любит влажность.'
     },
@@ -106,8 +120,10 @@ const plantsData = [
         image: 'img/lavande.png',
         tags: ['☀️ Яркий свет', '💧 Редкий', '🌱 Простой уход'],
         watering: 'Поливать умеренно, не переувлажнять.',
+        wateringInterval: 5,
         lighting: 'Яркий солнечный свет.',
         transplant: 'Пересаживать весной раз в 2-3 года.',
+        transplantInterval: 730,
         poisonous: 'Не ядовита.',
         features: 'Любит известковую почву, не переносит застоя воды.'
     }
