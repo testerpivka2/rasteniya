@@ -31,7 +31,7 @@
                     <i class="fa-solid fa-book"></i>
                     <span>Справочник</span>
                 </a>
-                <a href="#" class="nav-item">
+                <a href="notifications.html" class="nav-item">
                     <i class="fa-solid fa-bell"></i>
                     <span>Уведомления</span>
                 </a>
@@ -58,11 +58,24 @@
         </header>
 
         <section class="section-plants">
+            <div class="section-controls">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" placeholder="Поиск растений..." class="search-input" id="search-input-my">
+                </div>
+            </div>
+
             <div class="empty-state" id="empty-state">
                 <p class="none-list-plants">Здесь пока пусто...</p>
                 <p class="none-list-plants">Добавьте свои растения из справочника!</p>
             </div>
-            <div class="plants-grid" id="myPlantsGrid"></div>
+            <div class="plants-grid" id="my-plants-grid"></div>
+
+            <div class="no-results" id="no-results-my" style="display: none;">
+                <i class="fa-solid fa-search" style="font-size: 48px; color: #cbd5e1;"></i>
+                <h3>Ничего не найдено</h3>
+                <p>Попробуйте изменить критерии поиска</p>
+            </div>
         </section>
     </main>
 

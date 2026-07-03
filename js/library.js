@@ -3,7 +3,7 @@
 const plantsGrid = document.getElementById('plants-grid');
 const searchInput = document.getElementById('search-input');
 const filterBtns = document.querySelectorAll('.filter-btn');
-const noResults = document.getElementById('noResults');
+const no_results = document.getElementById('no-results');
 
 
 
@@ -97,7 +97,7 @@ let modalLoaded = false;
 function loadModal() {
 
     if (modalLoaded) return;
-    if (document.getElementById('plantModal')) return;
+    if (document.getElementById('plant-modal')) return;
 
     fetch('plants_description.html')
         .then(response => response.text())
@@ -110,16 +110,16 @@ function loadModal() {
 }
 
 function closeModal() {
-    const modal = document.getElementById('plantModal');
+    const modal = document.getElementById('plant-modal');
     modal.classList.remove('active');
     document.body.style.overflow = '';
 }
 
 document.addEventListener('click', function(e) {
-    const isCloseBtn = e.target.closest('#modalClose');
-    const isOverlay = e.target === document.getElementById('plantModal');
-    
-    if (isCloseBtn || isOverlay) {
+    const is_close_btn = e.target.closest('#modal-close');
+    const is_overlay = e.target === document.getElementById('plant-modal');
+
+    if (is_close_btn || is_overlay) {
         closeModal();
     }
 });
@@ -132,8 +132,8 @@ function showPlantDetails(plantId) {
     const plant = plantsData.find(p => p.id === plantId);
     if (!plant) return;
 
-    const modal = document.getElementById('plantModal');
-    const content = document.getElementById('modalContent');
+    const modal = document.getElementById('plant-modal');
+    const content = document.getElementById('modal-content');
 
     if (!modal || !content) {
         loadModal();
@@ -230,15 +230,31 @@ function showPlantDetails(plantId) {
     }
 }
 
+function filterPlants() {
+    const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
+    const activeCategory = document.querySelector('.filter-btn.active')?.dataset.category || 'all';
+
+    const filtered = plantsData.filter(plant => {
+        const matchesSearch = !searchTerm ||
+            plant.name.toLowerCase().includes(searchTerm) ||
+            plant.scientific.toLowerCase().includes(searchTerm) ||
+            plant.description.toLowerCase().includes(searchTerm);
+        const matchesCategory = activeCategory === 'all' || plant.category === activeCategory;
+        return matchesSearch && matchesCategory;
+    });
+
+    renderPlants(filtered);
+}
+
 function renderPlants(plants) {
     plantsGrid.innerHTML = '';
     
     if (plants.length === 0) {
-        noResults.style.display = 'flex';
+        no_results.style.display = 'flex';
         return;
     }
     
-    noResults.style.display = 'none';
+    no_results.style.display = 'none';
     
     plants.forEach(plant => {
         const card = createPlantCard(plant);
