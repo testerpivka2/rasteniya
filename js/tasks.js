@@ -35,10 +35,12 @@ function loadTasks() {
     const myPlantsData = JSON.parse(localStorage.getItem('myPlantsData')) || {};
     const myPlantsIds = Object.keys(myPlantsData).map(Number);
     
-    
     if (myPlantsIds.length === 0) {
         if (emptyState) emptyState.classList.remove('hidden');
         if (container) container.innerHTML = '';
+        localStorage.setItem('myNotifications', JSON.stringify([]));
+        const badge = document.querySelector('.notification-dot');
+        if (badge) badge.style.display = 'none';
         return;
     }
     
