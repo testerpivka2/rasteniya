@@ -1,15 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Ищем контейнер на странице уведомлений
     const container = document.querySelector('.section-notifications') || 
                       document.querySelector('.notifications-list') || 
                       document.getElementById('notifications-container');
     
-    // Загружаем сохраненные уведомления из памяти
     const notifications = JSON.parse(localStorage.getItem('myNotifications')) || [];
 
     if (!container) return;
 
-    // Если уведомлений нет — показываем заглушку
     if (notifications.length === 0) {
         container.innerHTML = `
             <div style="text-align: center; margin-top: 40px; color: #64748b;">
@@ -20,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Если есть — очищаем контейнер и рисуем плашки
     container.innerHTML = '';
     const listBlock = document.createElement('div');
     listBlock.className = 'notifications-wrapper';
