@@ -56,11 +56,13 @@ function loadTasks() {
         if (bDays === null) return -1;
         return aDays - bDays;
     });
+
+    updateGlobalNotifications(sortedPlants, myPlantsData);
     
     if (container) {
         container.innerHTML = '';
         sortedPlants.forEach(plant => {
-            const plantData = myPlantsData[plant.id];
+            const plantData = myPlantsData[String(plant.id)];
             
             const daysUntilWatering = getDaysUntilNext(plantData.lastWatering, plant.wateringInterval);
             const daysUntilTransplant = getDaysUntilNext(plantData.lastTransplant, plant.transplantInterval);
@@ -198,6 +200,49 @@ function openNoteEditor(plantId) {
             overlay.querySelector('#note-save-btn').click();
         }
     });
+}
+
+function updateGlobalNotifications(myPlants, myPlantsData) {
+    let notifications = [];
+
+    myPlants.forEach(plant => {
+        const plantData = myPlantsData[String(plant.id)];
+        if (!plantData) return;
+
+        const daysWater = getDaysUntilNext(plantData.lastWatering, plant.wateringInterval);
+        const daysTransplant = getDaysUntilNext(plantData.lastTransplant, plant.transplantInterval);
+
+        if (daysWater !== null && daysWater <= 0) {
+            notifications.push({
+                id: `water-${plant.id}`,
+                title: 'Напоминание о поливе',
+                text: daysWater === 0 
+                    ? `💧 Растение "${plant.name}" нужно полить сегодня!` 
+                    : `🚨 Полив растения "${plant.name}" просрочен на ${Math.abs(daysWater)} дн.!`,
+                type: 'danger',
+                date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
+        }
+
+        if (daysTransplant !== null && daysTransplant <= 0) {
+            notifications.push({
+                id: `transplant-${plant.id}`,
+                title: 'Пора пересаживать',
+                text: daysTransplant === 0 
+                    ? `🔄 Растению "${plant.name}" требуется пересадка сегодня.` 
+                    : `⚠️ Пересадка для "${plant.name}" задерживается на ${Math.abs(daysTransplant)} дн.!`,
+                type: 'warning',
+                date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
+        }
+    });
+
+    localStorage.setItem('myNotifications', JSON.stringify(notifications));
+
+    const badge = document.querySelector('.notification-dot');
+    if (badge) {
+        badge.style.display = notifications.length > 0 ? 'block' : 'none';
+    }
 }
 
 if (document.readyState === 'loading') {
