@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+
     const container = document.querySelector('.section-notifications') || 
                       document.querySelector('.notifications-list') || 
                       document.getElementById('notifications-container');
     
+
     const notifications = JSON.parse(localStorage.getItem('myNotifications')) || [];
 
     if (!container) return;
